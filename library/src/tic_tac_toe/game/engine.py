@@ -18,7 +18,7 @@ class TicTacToe:
 	renderer: Renderer
 	error_handler: ErrorHandler | None = None
 
-	def __post_init(self):
+	def __post_init__(self):
 		validate_players(self.player1, self.player2)
 
 	def play(self, starting_mark: Mark = Mark("X")) -> None:

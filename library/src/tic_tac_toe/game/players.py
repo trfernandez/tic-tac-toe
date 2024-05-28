@@ -1,6 +1,7 @@
 # tic_tac_toe/game/players.py
 
 import abc
+import random
 import time
 
 from tic_tac_toe.logic.models import Mark, GameState, Move
@@ -12,7 +13,7 @@ class Player(metaclass=abc.ABCMeta):
 
 	def make_move(self, game_state: GameState) -> GameState:
 		if self.mark is game_state.current_mark:
-			if move := sefl.get_move(game_state):
+			if move := self.get_move(game_state):
 				return move.after_state
 			raise InvalidMove("No more possible moves")
 		else:
@@ -33,6 +34,15 @@ class ComputerPlayer(Player, metaclass=abc.ABCMeta):
 		time.sleep(self.delay_seconds)
 		return self.get_computer_move(game_state)
 
-	@abd.abstractmethod
+	@abc.abstractmethod
 	def get_computer_move(self, game_state: GameState) -> Move | None:
 		"""Return the computer's move in the given game state."""
+
+
+
+class RandomComputerPlayer(ComputerPlayer):
+	def get_computer_move(self, game_state: GameState) -> Move | None:
+		try:
+			return random.choice(game_state.possible_moves)
+		except IndexError:
+			return None
