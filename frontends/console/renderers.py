@@ -1,10 +1,13 @@
 # frontends/console/renderers.py
 
 import textwrap
+from os import system
 from typing import Iterable
 
 from tic_tac_toe.game.renderers import Renderer
 from tic_tac_toe.logic.models import GameState
+
+system("")
 
 class ConsoleRenderer(Renderer):
 	def render(self, game_state: GameState) -> None:
